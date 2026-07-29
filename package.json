@@ -1,0 +1,19 @@
+{
+  "name": "daily-monorepo",
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "pnpm@11.4.0",
+  "scripts": {
+    "docker:compose": "docker compose up --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.4.0",
+      "onFail": "download"
+    }
+  }
+}
