@@ -6,7 +6,9 @@ import logger from 'morgan'
 
 import debug from 'debug'
 import http from 'http'
-import { checkDatabaseConnection, db } from './db.js'
+
+import { checkDatabaseConnection, db } from './db'
+import routes from './routes'
 
 const app = express()
 
@@ -16,7 +18,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(import.meta.dirname, 'public')))
 
-app.get('/', (req, res) => {
+app.use('/api', routes)
+
+app.get('/health', (req, res) => {
   res.status(200).json({ ok: true })
 })
 
@@ -93,7 +97,8 @@ app.set('port', port);
 const server = http.createServer(app)
 
 const start = async () => {
-  await checkDatabaseConnection()
+  const dbVersion = await checkDatabaseConnection()
+  console.log(`Connected to ${dbVersion}`)
 
   server.listen(port)
   server.on('error', onError)
