@@ -18,5 +18,7 @@ export const db = knex({
 })
 
 export const checkDatabaseConnection = async () => {
-  await db.raw('select 1')
+  const result = await db.raw('SELECT VERSION();')
+
+  return result?.rows?.[0]?.version
 }
